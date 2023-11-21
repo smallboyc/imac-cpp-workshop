@@ -15,7 +15,7 @@ void newImacPoster(sil::Image &image, sil::Image &newImage, int const &position_
 
 int main()
 {
-    sil::Image image{"images/logo.png"};
+    sil::Image image{"images/arcane.jpg"};
     int ratio{5};
     sil::Image newImage{ratio * image.width(), ratio * image.height()};
 

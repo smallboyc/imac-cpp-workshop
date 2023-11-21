@@ -26,7 +26,7 @@ int main()
             for (int i{1}; i <= 6; i++)
             {
                 int newCenter_x{static_cast<int>(center_x + rayon * static_cast<float>(cos(i * 3.14f / 3)))};
-                int newCenter_y{static_cast<int>(center_x + rayon * static_cast<float>(sin(i * 3.14f / 3)))};
+                int newCenter_y{static_cast<int>(center_y + rayon * static_cast<float>(sin(i * 3.14f / 3)))};
                 createCircle(image, x, y, newCenter_x, newCenter_y, rayon, thickness);
             }
         }
