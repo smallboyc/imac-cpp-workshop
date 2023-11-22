@@ -42,7 +42,7 @@ void mirrorPoster(sil::Image &image, bool const &reverse)
 
 int main()
 {
-    sil::Image const image{"images/blink-182.jpg"};
+    sil::Image const image{"images/melanchon.jpg"};
     int ratio{7};
     bool reverse{false};
     sil::Image newImage{ratio * image.width(), ratio * image.height()};
