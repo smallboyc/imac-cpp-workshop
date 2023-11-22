@@ -31,6 +31,7 @@ function(add_exercise FOLDER)
 
 endfunction(add_exercise)
 
+
 add_exercise(exo01)
 add_exercise(exo02)
 add_exercise(exo03)
@@ -47,3 +48,6 @@ add_exercise(exo13)
 add_exercise(exo14)
 add_exercise(exo15)
 add_exercise(exo16)
+add_exercise(exo17)
+add_exercise(blur)
+add_exercise(vortex)

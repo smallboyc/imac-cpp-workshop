@@ -13,7 +13,7 @@ void newImacPoster(sil::Image &image, sil::Image &newImage, int const &position_
     }
 }
 
-void mirrorPoster(sil::Image &image, bool const&reverse)
+void mirrorPoster(sil::Image &image, bool const &reverse)
 {
     int divide_x{2};
     int divide_y{1};
@@ -42,8 +42,8 @@ void mirrorPoster(sil::Image &image, bool const&reverse)
 
 int main()
 {
-    sil::Image const image{"images/logo.png"};
-    int ratio{5};
+    sil::Image const image{"images/blink-182.jpg"};
+    int ratio{7};
     bool reverse{false};
     sil::Image newImage{ratio * image.width(), ratio * image.height()};
 
@@ -61,7 +61,6 @@ int main()
                 mirrorPoster(copy, true);
             }
             newImacPoster(copy, newImage, j * image.width(), i * image.height());
-            
         }
     }
     newImage.save("output/pouet.png");
