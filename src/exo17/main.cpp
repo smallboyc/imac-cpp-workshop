@@ -4,26 +4,32 @@
 int main()
 {
     sil::Image image{500, 500};
-    std::complex<float> c{3.f, 2.f}; // Définis le nombre c = 3 + 2*i
-    std::complex<float> z{0.f, 0.f};
-    while (true)
+
+    // std::complex<float> c{3.f, 2.f}; // Définis le nombre c = 3 + 2*i
+
+    for (float x{0}; x < image.width(); x++)
     {
-        if (std::abs(z) > 2)
+        for (float y{0}; y < image.height(); y++)
         {
-            image.pixel(z.real(), z.imag()) = {0, 0, 0};
-            break;
-        }
-        else
-        {
-            if (z.real() < image.width() && z.imag() < image.height())
+            float newX{x / 125 - 2};
+            float newY{y / 125 - 2};
+            int count{0};
+            std::complex<float> c{newX, newY};
+            std::complex<float> z{0.f, 0.f};
+            float result{0.f};
+            while (count < 50)
             {
+                result = static_cast<float>(count) / 50;
                 z = z * z + c;
-                image.pixel(z.real(), z.imag()) = {1, 1, 1};
+
+                if (std::abs(z) > 2)
+                    break;
+
+                image.pixel(x, y) = glm::vec3{result};
+                count++;
             }
-
-            // }
         }
-
-        image.save("output/pouet.png");
     }
+
+    image.save("output/pouet.png");
 }

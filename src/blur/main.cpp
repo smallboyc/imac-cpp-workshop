@@ -4,11 +4,13 @@
 void getBlur(sil::Image &image)
 {
     glm::vec3 result{0};
+    glm::mat3 kernel{1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f};
     for (int x{0}; x < image.width(); x++)
     {
         for (int y{0}; y < image.height(); y++)
         {
             int count{0};
+
             for (int i{-1}; i <= 1; i++)
             {
                 for (int j{-1}; j <= 1; j++)
@@ -20,6 +22,7 @@ void getBlur(sil::Image &image)
                     }
                 }
             }
+
             result /= count;
 
             image.pixel(x, y) = result;
