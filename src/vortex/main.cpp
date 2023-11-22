@@ -21,7 +21,7 @@ int main()
             double rayon{sqrt(pow(x - positionCenter.x, 2) + pow(y - positionCenter.y, 2))};
             glm::vec2 newPoint{rotated(point, positionCenter, rayon * 0.1f)};
             if (newPoint.x < image.width() && newPoint.x >= 0 && newPoint.y < image.height() && newPoint.y >= 0)
-                voidImage.pixel(newPoint.x, newPoint.y) = image.pixel(x, y);
+                voidImage.pixel(x, y) = image.pixel(newPoint.x, newPoint.y);
         }
     }
     voidImage.save("output/pouet.png");
