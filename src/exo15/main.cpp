@@ -13,11 +13,11 @@ void newImacPoster(sil::Image &image, sil::Image &newImage, int const &position_
     }
 }
 
-void mirrorPoster(sil::Image &image, bool const &reverse)
+void mirrorPoster(sil::Image &image, bool const &reverse_y)
 {
     int divide_x{2};
     int divide_y{1};
-    if (reverse)
+    if (reverse_y)
     {
         divide_x = 1;
         divide_y = 2;
@@ -29,7 +29,7 @@ void mirrorPoster(sil::Image &image, bool const &reverse)
         {
             int select_x{image.width() - (x + 1)};
             int select_y{y};
-            if (reverse)
+            if (reverse_y)
             {
                 select_x = x;
                 select_y = image.height() - (y + 1);
@@ -44,7 +44,7 @@ int main()
 {
     sil::Image const image{"images/melanchon.jpg"};
     int ratio{7};
-    bool reverse{false};
+    bool reverse_y{false};
     sil::Image newImage{ratio * image.width(), ratio * image.height()};
 
     for (int i{0}; i < ratio; i++)

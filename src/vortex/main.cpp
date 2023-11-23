@@ -9,7 +9,7 @@ glm::vec2 rotated(glm::vec2 point, glm::vec2 center_of_rotation, float angle)
 
 int main()
 {
-    sil::Image image{"images/logo.png"};
+    sil::Image image{"images/melanchon.jpg"};
     sil::Image voidImage{image.width(), image.height()};
 
     glm::vec2 positionCenter{image.width() / 2, image.height() / 2};
@@ -19,7 +19,7 @@ int main()
         {
             glm::vec2 point{x, y};
             double rayon{sqrt(pow(x - positionCenter.x, 2) + pow(y - positionCenter.y, 2))};
-            glm::vec2 newPoint{rotated(point, positionCenter, rayon * 0.1f)};
+            glm::vec2 newPoint{rotated(point, positionCenter, rayon * 0.01f)};
             if (newPoint.x < image.width() && newPoint.x >= 0 && newPoint.y < image.height() && newPoint.y >= 0)
                 voidImage.pixel(x, y) = image.pixel(newPoint.x, newPoint.y);
         }
