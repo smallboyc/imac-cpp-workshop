@@ -41,7 +41,7 @@ void getBlur(sil::Image &image, sil::Image &newImage)
 
 int main()
 {
-    sil::Image image{"images/tloupartI.jpg"};
+    sil::Image image{"images/logo.png"};
     sil::Image newImage{image.width(), image.height()};
     getBlur(image, newImage);
     newImage.save("output/pouet.png");
