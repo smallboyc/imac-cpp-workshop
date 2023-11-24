@@ -2,12 +2,12 @@
 
 int main()
 {
-    sil::Image image{"images/logo.png"};
-    for (int x{0}; x < image.width(); x++)
+    sil::Image image{"images/anakin.jpg"};
+    for (int x{0}; x < image.width() / 2; x++)
     {
-        for (int y{0}; y < image.height() / 2; y++)
+        for (int y{0}; y < image.height(); y++)
         {
-            std::swap(image.pixel(x, y), image.pixel(x, image.height() - (y + 1)));
+            std::swap(image.pixel(x, y), image.pixel(image.width() - (x + 1), y));
         }
     }
     image.save("output/pouet.png");
