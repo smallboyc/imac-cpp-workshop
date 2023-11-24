@@ -3,9 +3,9 @@
 int main()
 {
     sil::Image image{300, 200};
-    for (float x{0}; x < image.width(); x++)
+    for (int x{0}; x < image.width(); x++)
     {
-        for (float y{0}; y < image.height(); y++)
+        for (int y{0}; y < image.height(); y++)
         {
             image.pixel(x, y).r = x / (image.width() - 1);
             image.pixel(x, y).g = x / (image.width() - 1);
