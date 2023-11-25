@@ -212,7 +212,7 @@ Dans cet exercice, un effet de vortex a été appliqué à l'image. L'algorithme
 
 | Avant | Après |
 | ----------- | ----------- |
-| ![Image d'origine](../images/photo.jpg) | ![Image modifiée](images/resultat/normalisation.png) |
+| ![Image d'origine](images/photo.jpg) | ![Image modifiée](images/resultat/normalisation.png) |
 
 📁 [Code source](src/normalisation/main.cpp)
 
