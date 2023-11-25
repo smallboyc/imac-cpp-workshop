@@ -14,9 +14,6 @@ Dans cet exercice, un effet aléatoire de couleur (bruit) a été appliqué à l
 ### Spécificités
 - Utilisation d'une fonction de génération de nombres aléatoires
 
-### Pièges potentiels à éviter
-- Aucun
-
 <br>
 
 ## ⭐⭐ Rotation de 90°
@@ -97,8 +94,6 @@ Dans cet exercice, la formation d'un disque a été appliqué à une image de 50
 ### Spécificités
 - Les pixels situés à l'intérieur du cercle défini par l'équation sont colorés en blanc en vérifiant si sa position correspond à celle à l'intérieur du disque à l'aide d'une équation de cercle.
 
-### Pièges potentiels à éviter
-- Aucun
 
 <br>
 
@@ -116,8 +111,6 @@ Dans cet exercice, la formation d'un cercle a été appliqué à une image de 50
 ### Spécificités
 - Les pixels situés à l'intérieur du cercle sont laissés vides, tandis que ceux se trouvant dans l'épaisseur des contours sont colorés en blanc en déterminant s'ils se trouvent à l'intérieur du cercle ou dans l'épaisseur de ses contours à l'aide d'une équation de cercle modifiée.
 
-### Pièges potentiels à éviter
-- Aucun
 
 <br>
 
@@ -229,3 +222,56 @@ Dans cet exercice, un effet de normalisation de l'histogramme a été appliqué 
     image.pixel(x, y).g = (image.pixel(x, y).g - darkPixel) * 1 / whitePixel;
     image.pixel(x, y).b = (image.pixel(x, y).b - darkPixel) * 1 / whitePixel;
 ``` 
+
+<br>
+
+## ⭐⭐⭐(⭐) Tramage
+
+| Avant | Après |
+| ----------- | ----------- |
+| ![Image d'origine](images/photo.jpg) | ![Image modifiée](images/resultat/bayer.png) |
+
+📁 [Code source](src/bayer/main.cpp)
+
+
+### Description
+Dans cet exercice, un effet de tramage a été appliqué à l'image. L'algorithme transforme l'image en une version trame à l'aide d'une matrice de Bayer prédéfinie pour effectuer un tramage ordonné.
+
+### Spécificités
+- Une fonction `bwImage` est utilisée pour convertir l'image en noir et blanc en remplaçant chaque composante RGB par la moyenne des valeurs R, G et B de chaque pixel pour obtenir des nuances de gris.
+- Le tramage est réalisé en itérant sur chaque pixel de l'image et en ajoutant une valeur prédéfinie de la matrice de Bayer à chaque pixel en noir et blanc.
+- Selon la valeur résultante après l'ajout, les pixels sont convertis soit en noir (0), soit en blanc (1).
+
+<br>
+
+## ⭐⭐⭐⭐ Convolutions
+
+| Avant | Après |
+| ----------- | ----------- |
+| ![Image d'origine](images/photo.jpg) | ![Image modifiée](images/resultat/blur.png) |
+
+📁 [Code source](src/blur/main.cpp)
+
+
+### Description
+Dans cet exercice, un effet de convolution a été appliqué à l'image. L'algorithme utilise une matrice de convolution (également appelée noyau ou kernel) pour appliquer des transformations telles que flou, netteté, détection de contours, etc.
+
+### Spécificités
+- Une fonction `getBlur` est utilisée pour appliquer la convolution à chaque pixel de l'image en utilisant un kernel prédéfini.
+- Pour effecturer un flou simple, le kernel utilisé est une matrice 3x3 de valeurs prédéfinies. Chaque valeur du kernel multiplie les valeurs des pixels voisins, puis les valeurs résultantes sont utilisées pour former les pixels de la nouvelle image grâce à la moyenne des pixels environnants et du noyau.
+- Selon le kernel et les valeurs des pixels environnants, différents effets peuvent être obtenus. Il est modulable avec les kernels proposés en commentaire.
+- En fonction du kernel, une division peut être appliqué. Un booléen `divide{true}` est alors mis en place pour être activé comme bon nous semble lorsque cela est nécessaire.
+
+### Pièges potentiels à éviter
+- Ne pas incrémenter la variable `number` comme ceci :
+Pour éviter que celle-ci ne s'ajoute pas lorsque des pixels dépassent l'image. Le kernel ne fonctionnerait donc pas sur les bords de l'image et serait faussé.
+```cpp
+        if (x + i >= 0 && x + i < image.width() && y + j >= 0 && y + j < image.height())
+        {
+            result += image.pixel(x + i, y + j) * kernel[number];
+            total += kernel[number];
+            number++;
+        }
+```
+- Ne pas ajouter de nouvelle image sinon chaque pixel modifié sera pris en compte par son pixel voisin. Les pixels qui se transforment se base donc sur des pixels déjà transformés. L'effet ne marcherai donc pas.
+- Oublier de changer la valeur du booléen `divide` lorsqu'elle doit être pris en compte ou non.
