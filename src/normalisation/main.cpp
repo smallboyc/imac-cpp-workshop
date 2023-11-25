@@ -14,13 +14,9 @@ int main()
             float moyenne{(image.pixel(x, y).r + image.pixel(x, y).g + image.pixel(x, y).b) / 3.0f};
 
             if (moyenne < darkPixel)
-            {
                 darkPixel = moyenne;
-            }
             else if (moyenne > whitePixel)
-            {
                 whitePixel = moyenne;
-            }
         }
     }
 

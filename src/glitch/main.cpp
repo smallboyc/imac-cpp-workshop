@@ -27,8 +27,8 @@ void ExchangeRectangle(sil::Image &image)
 
 int main()
 {
-    sil::Image image{"images/logo.png"};
-    int range{100};
+    sil::Image image{"images/fma.jpg"};
+    int range{300};
     for (int i{0}; i < range; i++)
     {
         ExchangeRectangle(image);

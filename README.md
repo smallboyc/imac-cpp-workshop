@@ -173,9 +173,7 @@ int main()
 ### Spécificités :
 
 - Analysons... On veut que :
-> 0 ➡️ 1
-> 1 ➡️ 0
-> 0.8 ➡️ 0.2
+> 0 ➡️ 1, 1 ➡️ 0, 0.8 ➡️ 0.2 ...
 - En généralisant on devine la formule : **f(x) = 1 - x**
 - Il suffit donc d'**appliquer cette formule** aux composantes RGB de tous nos pixels !
 
@@ -358,10 +356,95 @@ int main()
 <br>
 <br>
 
-##⭐⭐⭐⭐ Tri de pixels
+## ⭐⭐⭐ Glitch
+| Avant                        | Après                                          |
+| ---------------------------- | ---------------------------------------------- |
+| ![alt text](images/fma.jpg) | ![alt text](images/resultat/fma.png) |
+
+📁 [Code source](https://github.com/smallboyc/imac-cpp-workshop/blob/main/src/glitch/main.cpp)
+### Description :
+
+- On souhaite sélectionner 2 rectangles de pixels aux hasard dans l'image et les échanger. Les tailles sont gérés aléatoirement mais les 2 rectangles doivent avoir la même taille.
+
+### Spécificités :
+- On va utiliser la librairie `glm` pour manipuler des `vec2` nous permettant de stocker une position x et y. Notre code sera alors plus lisible et plus simple à gérer.
+- L'idée est de générer 2 `vec2`. Un 1er avec la position du pixel de départ de notre 1er rectangle. Et un second avec la position de départ du 2ème rectangle.
+- L'idée est de parcourir une taille commune `rectangleSize` pour pouvoir échanger un nombre de pixel
+
+## ⭐⭐⭐⭐ Tri de pixels
 
 | Avant                        | Après                                          |
 | ---------------------------- | ---------------------------------------------- |
 | ![alt text](images/logo.png) | ![alt text](images/resultat/pixel_sorting.png) |
 
 📁 [Code source](https://github.com/smallboyc/imac-cpp-workshop/blob/main/src/pixel_sorting/main.cpp)
+
+### Description :
+
+- On souhaite récupérer une portion rectangulaire de pixels. Cette portion doit être trié en fonction de l'intensité. Ainsi le pixel le plus lumineux se trouve au début de la portion et le moins lumineux à la fin. On replace ensuite la portion dans l'image au même endroit.
+
+### Spécificités :
+- On nous donne la fonction suivante, permettant de trier les éléments d'un tableau `table`.
+```cpp
+std::sort(table.begin(), table.end(), [](glm::vec3 &color1, glm::vec3 &color2)
+{ return brightness(color1) < brightness(color2); });
+```
+- Voici la fonction `brightness` qui retourne la somme des composantes RGB d'un pixel.
+```cpp
+float brightness(glm::vec3 &color)
+{
+    return (color.r + color.g + color.b);
+}
+```
+
+- L'idée est de s'inspirer du glitch en sélectionnant un rectangle de pixel. On trouve aléatoirement un pixel de départ sur l'image et on parcourt une taille généré aléatoirement (pas trop grande non plus) et on fixe pour ce code `y` à 1.
+```cpp
+  glm::vec2 inputPositionStart{random_int(0, image.width()), random_int(0, image.height())};
+  glm::vec2 rectangleSize{random_int(20, 30), 1};
+```
+- Chaque pixel du rectangle est push dans un tableau.
+```cpp
+ for (int i{0}; i < rectangleSize.x; i++)
+    {
+        for (int j{0}; j < rectangleSize.y; j++)
+        {
+            if (inputPositionStart.x + i < image.width() &&
+                inputPositionStart.y + j < image.height())
+                table.push_back(image.pixel(inputPositionStart.x + i, inputPositionStart.y + j));
+        }
+    }
+```
+- On appelle la fonction de tri sur `table`.
+- On doit alors finalement boucler de la même façon sur notre rectangle en attribuant aux positions, les nouveaux pixels triés du tableau.
+- On utilise alors une variable `count` pour parcourir notre tableau.
+  
+```cpp
+   int count{0};
+    for (int i{0}; i < rectangleSize.x; i++)
+    {
+        for (int j{0}; j < rectangleSize.y; j++)
+        {
+            if (inputPositionStart.x + i < image.width() &&
+                inputPositionStart.y + j < image.height())
+            {
+
+                image.pixel(inputPositionStart.x + i, inputPositionStart.y + j) = table[count];
+                count++;
+            }
+        }
+    }
+```
+- On obtient là un rectangle trié. Il suffit maintenant de boucler!
+- Tout le code ci-dessus a été implémenté dans une fonction `getRectangle()` excepté la fonction `brightness`.
+```cpp
+int main()
+{
+    sil::Image image{"images/logo.png"};
+    for (int i{0}; i < 1000; i++)
+        getRectangle(image);
+    image.save("output/pouet.png");
+}
+```
+### Potentiels problèmes
+- Oublier le `count`. Cette variable est essentielle pour être certain de parcourir tout notre tableau trié et ainsi de placer les pixels au bon endroit.
+- Ne pas vérifier les bornes. Il faut en effet s'assurer que les pixels que l'on manipule se trouvent dans l'image.

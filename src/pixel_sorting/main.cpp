@@ -48,9 +48,7 @@ void getRectangle(sil::Image &image)
 int main()
 {
     sil::Image image{"images/logo.png"};
-    sil::Image copy{image};
     for (int i{0}; i < 1000; i++)
-        getRectangle(copy);
-
-    copy.save("output/pouet.png");
+        getRectangle(image);
+    image.save("output/pouet.png");
 }
