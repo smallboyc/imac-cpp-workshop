@@ -11,17 +11,11 @@ void ExchangeRectangle(sil::Image &image)
     for (int i{0}; i <= rectangleSize.x; i++)
     {
         for (int j{0}; j <= rectangleSize.y; j++)
-        {
             if (inputPositionStart.x + i < image.width() &&
                 inputPositionStart.y + j < image.height() &&
                 outputPositionStart.x + i < image.width() &&
                 outputPositionStart.y + j < image.height())
-            {
-                glm::vec3 temp(image.pixel(inputPositionStart.x + i, inputPositionStart.y + j));
-                image.pixel(inputPositionStart.x + i, inputPositionStart.y + j) = image.pixel(outputPositionStart.x + i, outputPositionStart.y + j);
-                image.pixel(outputPositionStart.x + i, outputPositionStart.y + j) = temp;
-            }
-        }
+                std::swap(image.pixel(inputPositionStart.x + i, inputPositionStart.y + j), image.pixel(outputPositionStart.x + i, outputPositionStart.y + j));
     }
 }
 
@@ -30,8 +24,6 @@ int main()
     sil::Image image{"images/fma.jpg"};
     int range{300};
     for (int i{0}; i < range; i++)
-    {
         ExchangeRectangle(image);
-    }
     image.save("output/pouet.png");
 }

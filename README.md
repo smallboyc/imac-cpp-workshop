@@ -256,9 +256,8 @@ int main()
     for (int x{0}; x < image.width() / 2; x++)
     {
         for (int y{0}; y < image.height(); y++)
-        {
             std::swap(image.pixel(x, y), image.pixel(image.width() - (x + 1), y));
-        }
+
     }
     image.save("output/pouet.png");
 }
@@ -364,12 +363,47 @@ int main()
 📁 [Code source](https://github.com/smallboyc/imac-cpp-workshop/blob/main/src/glitch/main.cpp)
 ### Description :
 
-- On souhaite sélectionner 2 rectangles de pixels aux hasard dans l'image et les échanger. Les tailles sont gérés aléatoirement mais les 2 rectangles doivent avoir la même taille.
+- On souhaite sélectionner 2 **rectangles de pixels** aux **hasard** dans l'image et les **échanger**. Les tailles sont gérés aléatoirement mais les 2 rectangles doivent avoir **la même taille**.
 
 ### Spécificités :
 - On va utiliser la librairie `glm` pour manipuler des `vec2` nous permettant de stocker une position x et y. Notre code sera alors plus lisible et plus simple à gérer.
 - L'idée est de générer 2 `vec2`. Un 1er avec la position du pixel de départ de notre 1er rectangle. Et un second avec la position de départ du 2ème rectangle.
-- L'idée est de parcourir une taille commune `rectangleSize` pour pouvoir échanger un nombre de pixel
+```cpp
+glm::vec2 inputPositionStart{random_int(0, image.width()),random_in(0, image.height())};
+glm::vec2 outputPositionStart{random_int(0, image.width()), random_int(0, image.height())};
+```
+- Il faut parcourir une taille **commune** `rectangleSize` pour pouvoir échanger le même nombre de pixel.
+ ```cpp
+glm::vec2 rectangleSize{random_int(20, 30), random_int(3, 8)};
+```
+- Il suffit de boucler en vérifiant que nos pixels sont bien contenu dans l'image, puis d'utiliser la fonction `std::swap` et le tour est joué.
+  
+```cpp
+   for (int i{0}; i <= rectangleSize.x; i++)
+    {
+        for (int j{0}; j <= rectangleSize.y; j++)
+            if (inputPositionStart.x + i < image.width() &&
+                inputPositionStart.y + j < image.height() &&
+                outputPositionStart.x + i < image.width() &&
+                outputPositionStart.y + j < image.height())
+                std::swap(image.pixel(inputPositionStart.x + i, inputPositionStart.y + j), image.pixel(outputPositionStart.x + i, outputPositionStart.y + j));
+    }
+```
+- On stock tout ça dans une fonction `ExchangeRectangle` et on boucle !
+```cpp
+int main()
+{
+    sil::Image image{"images/fma.jpg"};
+    int range{300};
+    for (int i{0}; i < range; i++)
+        ExchangeRectangle(image);
+    image.save("output/pouet.png");
+}
+```
+### Potentiels problèmes
+- Oublier de vérifier si les pixels sont dans l'image.
+<br>
+<br>
 
 ## ⭐⭐⭐⭐ Tri de pixels
 
