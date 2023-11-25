@@ -33,7 +33,6 @@ void getBlur(sil::Image &image, sil::Image &newImage)
             }
             if (divide)
                 result /= total;
-
             newImage.pixel(x, y) = result;
         }
     }

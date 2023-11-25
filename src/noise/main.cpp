@@ -3,7 +3,6 @@
 
 int main()
 {
-    set_random_seed(0);
     sil::Image image{"images/logo.png"};
 
     for (size_t i = 0; i < image.pixels().size(); i++)

@@ -24,12 +24,5 @@ int main()
         for (int j{0}; j < ratio; j++)
             newImacPoster(image, newImage, j * image.width(), i * image.height());
     }
-    // for (int x{0}; x < newImage.width(); x++)
-    // {
-    //     for (int y{0}; y < newImage.height(); y++)
-    //     {
-    //         newImage.pixel(x, y) = image.pixel(x  % image.width(), y % image.height());
-    //     }
-    // }
     newImage.save("output/pouet.png");
 }

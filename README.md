@@ -125,7 +125,7 @@ Dans le code ci-dessus, on se retrouve avec un canal bleu ayant la même valeur 
 <br>
 <br>
 
-##⭐ Noir & Blanc
+## ⭐ Noir & Blanc
 
 | Avant                        | Après                                        |
 | ---------------------------- | -------------------------------------------- |
@@ -266,9 +266,314 @@ int main()
 ### Potentiels problèmes
 - Parcourir la totalité de la **width**. La conséquence, c'est d'avoir une image **similaire** à celle d'origine. En réalité, elle aura été inversée **2 fois**.
 
+<br>
+<br>
+
+## ⭐⭐ Image Bruitée
+
+| Avant | Après |
+| ----------- | ----------- |
+| ![Image d'origine](images/logo.png) | ![Image modifiée](images/resultat/noise.png) |
+
+📁 [Code source](src/noise/main.cpp)
+
+### Description
+Dans cet exercice, un effet aléatoire de couleur (bruit) a été appliqué à l'image. Chaque pixel de l'image a été modifié en assignant une couleur aléatoire. Pour ce faire, les composantes R (rouge), G (vert) et B (bleu) de chaque pixel ont été remplacées par des valeurs aléatoires comprises entre 0 et 1.
+
+### Spécificités
+- On utilise la fonction `random_int` pour trouver une position aléatoire sur notre image. `random_float` nous permet de générer un float aléatoire entre 0 et 1 qui sera attribué aux différentes composantes RGB du pixel.
+- On génère `image.pixels().size()-1` pixels aléatoires !
+```cpp
+#include "random.hpp"
+
+int main()
+{
+    sil::Image image{"images/logo.png"};
+
+    for (size_t i = 0; i < image.pixels().size(); i++)
+    {
+        int x_random = random_int(0, image.width());
+        int y_random = random_int(0, image.height());
+        image.pixel(x_random, y_random).r = random_float(0, 1.0f);
+        image.pixel(x_random, y_random).g = random_float(0, 1.0f);
+        image.pixel(x_random, y_random).b = random_float(0, 1.0f);
+    }
+
+    image.save("output/pouet.png");
+}
+```
 
 <br>
 <br>
+
+## ⭐⭐ Rotation de 90°
+
+| Avant | Après |
+| ----------- | ----------- |
+| ![Image d'origine](images/logo.png) | ![Image modifiée](images/resultat/rotate_90.png) |
+
+📁 [Code source](src/rotate_90/main.cpp)
+
+### Description
+Dans cet exercice, une rotation de l'image originale à 90 degrés dans le sens horaire a été effectuée. L'algorithme utilise une approche de manipulation des pixels pour réaliser cette rotation.
+
+### Spécificités
+- Parcourir chaque pixel de l'image d'origine et le placer dans une nouvelle image avec des coordonnées modifiées pour effectuer la rotation.
+- L'implémentation de la rotation se fait en échangeant les coordonnées x et y des pixels entre l'image d'origine et la nouvelle image résultante.
+  ![image](images/other/exemple.jpg)
+- Le papier et le crayon sont toujours de bons outils !
+```cpp
+int main()
+{
+    sil::Image image{"images/logo.png"};
+    sil::Image voidImage{image.height(), image.width()};
+    for (int x{0}; x < image.width(); x++)
+    {
+        for (int y{0}; y < image.height(); y++)
+            voidImage.pixel(voidImage.width() - 1 - y, x) = image.pixel(x, y);
+    }
+    voidImage.save("output/pouet.png");
+}
+```
+
+<br>
+<br>
+
+## ⭐⭐ RGB Split
+
+| Avant | Après |
+| ----------- | ----------- |
+| ![Image d'origine](images/logo.png) | ![Image modifiée](images/resultat/rgb_split.png) |
+
+📁 [Code source](src/rgb_split/main.cpp)
+
+### Description
+Dans cet exercice, un effet de séparation des canaux RGB (RGB split) a été appliqué à l'image. L'algorithme modifie les canaux Rouge (R), Vert (G), et Bleu (B) de l'image pour créer une version où chaque canal est décalé par rapport aux autres.
+
+### Spécificités
+- Trois boucles distinctes sont utilisées pour traiter séparément les composantes Rouge, Vert et Bleu de chaque pixel de l'image.
+- Pour chaque composante de couleur, une boucle spécifique effectue un décalage des pixels à gauche ou à droite en fonction du canal (R, G ou B) tout en conservant les autres canaux.
+
+### Pièges potentiels à éviter
+- Ne pas oublier de décaler les valeurs de pixels.
+- Modifier l'image d'origine. Les calculs seront faussés par les précédentes modifications effectués sur les pixels qui ont été réattribués à l'image d'origine.
+
+<br>
+<br>
+
+## ⭐⭐ Luminosité
+
+| Après Assombrissement | Avant | Après Eclaircissement |
+| --- | :-: |  --: |
+| ![Image modifiée sombre](images/resultat/sombre.png) | ![Image d'origine](images/photo.jpg) | ![Image modifiée claire](images/resultat/clair.png) |
+
+📁 [Code source](src/luminosite/main.cpp)
+
+### Description
+Dans cet exercice, un effet d'assombrissement ou d'éclaircissement de l'image a été appliqué en utilisant une variable `number`. Cette variable est utilisée pour modifier la puissance des canaux Rouge (R), Vert (G) et Bleu (B) de chaque pixel de l'image.
+
+### Spécificités
+- Une boucle parcourt chaque pixel de l'image et ajuste la valeur de chaque composante de couleur en fonction de la valeur de `number`.
+- La fonction `pow` est utilisée pour augmenter ou diminuer la valeur des canaux RVB en fonction de la valeur de `number`, ce qui permet de contrôler l'intensité lumineuse des pixels.
+
+### Pièges potentiels à éviter
+- Multiplier les valeurs sans les fonctions puissances. Cela nous donnerait un resultat trop saturé.
+
+<br>
+<br>
+
+
+## ⭐⭐ Disque
+
+| Image |
+| --- |
+| ![Image d'origine](images/resultat/disque.png) |
+
+📁 [Code source](src/disque/main.cpp)
+
+### Description
+Dans cet exercice, la formation d'un disque a été appliqué à une image de 500x500. L'algorithme remplit les pixels de l'image pour former un disque centré sur l'image.
+
+### Spécificités
+- Les pixels situés à l'intérieur du cercle défini par l'équation sont colorés en blanc en vérifiant si sa position correspond à celle à l'intérieur du disque à l'aide d'une équation de cercle.
+  
+```cpp
+int main()
+{
+    sil::Image image{500, 500};
+    int rayon{60};
+    for (int x{0}; x < image.width(); x++)
+    {
+        for (int y{0}; y < image.height(); y++)
+        {
+            if (pow(x - image.width() / 2, 2) + pow(y - image.height() / 2, 2) <= pow(rayon, 2))
+            {
+                image.pixel(x, y) = {1,
+                                     1,
+                                     1};
+            }
+        }
+    }
+    image.save("output/pouet.png");
+}
+```
+
+<br>
+<br>
+
+## ⭐ Cercle
+
+| Image |
+| --- |
+| ![Image d'origine](images/resultat/cercle.png) |
+
+📁 [Code source](src/cercle/main.cpp)
+
+### Description
+Dans cet exercice, la formation d'un cercle a été appliqué à une image de 500x500. L'algorithme dessine un cercle avec un rayon et une épaisseur de contours variable.
+
+### Spécificités
+- Les pixels situés à l'intérieur du cercle sont laissés vides, tandis que ceux se trouvant dans l'épaisseur des contours sont colorés en blanc en déterminant s'ils se trouvent à l'intérieur du cercle ou dans l'épaisseur de ses contours à l'aide d'une équation de cercle modifiée.
+
+```cpp
+int main()
+{
+    sil::Image image{500, 500};
+    int rayon{60};
+    int thickness{2};
+    for (int x{0}; x < image.width(); x++)
+    {
+        for (int y{0}; y < image.height(); y++)
+        {
+            if (pow(x - image.width() / 2, 2) + pow(y - image.height() / 2, 2) >= pow(rayon, 2) && pow(x - image.width() / 2, 2) + pow(y - image.height() / 2, 2) <= pow(rayon + thickness, 2))
+            {
+                image.pixel(x, y) = {1,
+                                     1,
+                                     1};
+            }
+        }
+    }
+    image.save("output/pouet.png");
+}
+```
+
+<br>
+<br>
+
+## ⭐⭐⭐ Rosace
+
+| Image |
+| --- |
+| ![Image d'origine](images/resultat/rosace.png) |
+
+📁 [Code source](src/rosace/main.cpp)
+
+
+### Description
+Dans cet exercice, la formation d'une rosace a été appliqué à une image de 500x500. L'algorithme dessine une rosace en superposant plusieurs cercles avec des épaisseurs de contour variables.
+
+### Spécificités
+- Chaque cercle est défini avec un rayon, une épaisseur de contour et une position de centre différents.
+- Le centre défini des cercles est calculé en fonction du cercle trigonométrique par des coordonnées polaires.
+- On implémente une fonction `createCircle` car on remarque que la tâche à effectuer est la même que pour le cercle avec des centres différents.
+  
+```cpp
+void createCircle(sil::Image &image, int &x, int &y, int &center_x, int &center_y, int &rayon, int &thickness)
+{
+    if (pow(x - center_x, 2) + pow(y - center_y, 2) >= pow(rayon - thickness, 2) && pow(x - center_x, 2) + pow(y - center_y, 2) <= pow(rayon + thickness, 2))
+    {
+        image.pixel(x, y) = {1,
+                             1,
+                             1};
+    }
+}
+```
+- L'utilité de la fonction nous permet d'entrer les nouvelles coordonnées des centres après le calcul de ce dernier via les formules de trigonométrie. On remarque 6 cercle positionnés tous les $i\pi/3$. $i$ allant donc de 1 à 6.
+ 
+```cpp
+int main()
+{
+    sil::Image image{500, 500};
+    int rayon{60};
+    int thickness{2};
+    int center_x{image.width() / 2};
+    int center_y{image.height() / 2};
+    for (int x{0}; x < image.width(); x++)
+    {
+        for (int y{0}; y < image.height(); y++)
+        {
+            createCircle(image, x, y, center_x, center_y, rayon, thickness);
+            for (int i{1}; i <= 6; i++)
+            {
+                int newCenter_x{static_cast<int>(center_x + rayon * static_cast<float>(cos(i * 3.14f / 3)))};
+                int newCenter_y{static_cast<int>(center_y + rayon * static_cast<float>(sin(i * 3.14f / 3)))};
+                createCircle(image, x, y, newCenter_x, newCenter_y, rayon, thickness);
+            }
+        }
+    }
+    image.save("output/pouet.png");
+}
+```
+### Pièges potentiels à éviter
+- Oublier d'ajouter un nouveau centre pour chaque cercle en fonction du centre de base.
+- Oublier les passages par référence.
+
+<br>
+<br>
+
+## ⭐⭐ Mosaïque
+
+| Avant | Après |
+| ----------- | ----------- |
+| ![Image d'origine](images/logo.png) | <img src="images/resultat/mosaique.png" alt="Image modifiée" width="300"/> |
+
+📁 [Code source](src/mosaique/main.cpp)
+
+### Description
+Dans cet exercice, un effet de mosaïque a été appliqué à l'image en utilisant une version agrandie de l'image originale. L'algorithme divise l'image en une grille de carrés identiques et place des copies de l'image originale dans chaque carré.
+
+### Spécificités
+- Une fonction `newImacPoster` est utilisée pour placer une copie de l'image originale à une position spécifique dans la nouvelle image.
+- Sur une grille de carrés est utilisé la fonction `newImacPoster` pour répliquer l'image dans chaque carré de la grille, formant ainsi l'effet de mosaïque.
+- Les variables `position_x` et `position_y` sont essentielles afin de parcourir correctement la nouvelle image et afficher l'originale.
+
+```cpp
+void newImacPoster(sil::Image &image, sil::Image &newImage, int const &position_x, int const &position_y)
+{
+
+    for (int x{0}; x < image.width(); x++)
+    {
+        for (int y{0}; y < image.height(); y++)
+        {
+            newImage.pixel(position_x + x, position_y + y) = image.pixel(x, y);
+        }
+    }
+}
+```
+- Le ratio du nombre de carré est modulable grâce à une variable `ratio` présente au début du `main`.
+```cpp
+int main()
+{
+    sil::Image image{"images/arcane.jpg"};
+    int ratio{5};
+    sil::Image newImage{ratio * image.width(), ratio * image.height()};
+
+    for (int i{0}; i < ratio; i++)
+    {
+        for (int j{0}; j < ratio; j++)
+            newImacPoster(image, newImage, j * image.width(), i * image.height());
+    }
+    newImage.save("output/pouet.png");
+}
+```
+
+### Pièges potentiels à éviter
+- Oublier de créer une nouvelle image pour y implanter nos autres images.
+- Oublier les références (surtout sur `newImage`).
+
+<br>
+<br>
+
 
 ## ⭐⭐⭐ Mosaïque miroir
 
@@ -323,7 +628,7 @@ void mirror(sil::Image &image, bool const reverse_y)
 int main()
 {
     sil::Image const image{"images/arcane.jpg"};
-    int ratio{8};
+    int ratio{6};
     bool reverseEffect{true};
     sil::Image newImage{ratio * image.width(), ratio * image.height()};
 
