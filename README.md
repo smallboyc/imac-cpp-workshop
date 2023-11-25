@@ -710,6 +710,131 @@ int main()
 <br>
 <br>
 
+## ⭐⭐⭐ Fractale de Mandelbrot
+
+| Image |
+| --- |
+|![Image](images/resultat/fractale.png) |
+
+📁 [Code source](src/fractale/main.cpp)
+
+### Description
+Dans cet exercice, un algorithme génère une image représentant la fractale de Mandelbrot. La fractale de Mandelbrot est un ensemble de points complexes dans le plan complexe qui produit une forme fractale lorsqu'elle est visualisée.
+
+### Spécificités
+- Deux boucles imbriquées parcourent chaque pixel de l'image et effectuent des itérations selon la formule mathématique de la fractale de Mandelbrot.
+- Pour chaque pixel de l'image, l'algorithme effectue un certain nombre d'itérations pour déterminer s'il appartient à l'ensemble de Mandelbrot en fonction de sa convergence ou de sa divergence.
+- La couleur du pixel est définie en fonction du nombre d'itérations nécessaires avant que la séquence ne diverge.
+  
+```cpp
+#include <complex>
+
+int main()
+{
+    sil::Image image{500, 500};
+    for (float x{0}; x < image.width(); x++)
+    {
+        for (float y{0}; y < image.height(); y++)
+        {
+            float newX{x / 125 - 2};
+            float newY{y / 125 - 2};
+            int count{0};
+            std::complex<float> c{newX, newY};
+            std::complex<float> z{0.f, 0.f};
+            float result{0.f};
+            while (count < 50)
+            {
+                result = static_cast<float>(count) / 50;
+                z = z * z + c;
+
+                if (std::abs(z) > 2)
+                    break;
+
+                image.pixel(x, y) = glm::vec3{result};
+                count++;
+            }
+        }
+    }
+
+    image.save("output/pouet.png");
+}
+```
+
+### Pièges potentiels à éviter
+- L'utilisation d'un booléen pour la boucle while. L'algorithme ne parviendrai pas à sortir de la boucle.
+  
+<br>
+<br>
+
+## ⭐⭐⭐(⭐) Vortex
+
+| Avant | Après |
+| ----------- | ----------- |
+| ![Image d'origine](images/logo.png) | ![Image modifiée](images/resultat/vortex.png) |
+
+📁 [Code source](src/vortex/main.cpp)
+
+### Description
+Dans cet exercice, un effet de vortex a été appliqué à l'image. L'algorithme effectue une transformation de chaque pixel en utilisant une rotation autour d'un centre donné.
+
+### Spécificités
+- Une fonction `rotated` est utilisée pour effectuer la rotation des pixels autour d'un centre de rotation.
+- La transformation de rotation est appliqué en fonction de la distance par rapport au centre de l'image.
+
+### Pièges potentiels à éviter
+- Sortir de l'image en remplaçant les pixels.
+- Attribuer les nouvelles coordonnées `newPoint.x, newPoint.y` de la nouvelle image `voidImage`. -> Notre transformation serait décalé par rapport au centre `x,y` de notre image d'origine.
+```cpp
+if (newPoint.x < image.width() && newPoint.x >= 0 && newPoint.y < image.height() && newPoint.y >= 0)
+    voidImage.pixel(x, y) = image.pixel(newPoint.x, newPoint.y);
+```
+
+<br>
+<br>
+
+## ⭐⭐⭐(⭐) Tramage
+
+| Avant | Après |
+| ----------- | ----------- |
+| ![Image d'origine](images/photo.jpg) | ![Image modifiée](images/resultat/bayer.png) |
+
+📁 [Code source](src/bayer/main.cpp)
+
+
+### Description
+Dans cet exercice, un effet de tramage a été appliqué à l'image. L'algorithme transforme l'image en une version trame à l'aide d'une matrice de Bayer prédéfinie pour effectuer un tramage ordonné.
+
+### Spécificités
+- Une fonction `bwImage` est utilisée pour convertir l'image en noir et blanc en remplaçant chaque composante RGB par la moyenne des valeurs R, G et B de chaque pixel pour obtenir des nuances de gris.
+- Le tramage est réalisé en itérant sur chaque pixel de l'image et en ajoutant une valeur prédéfinie de la matrice de Bayer à chaque pixel en noir et blanc.
+- Selon la valeur résultante après l'ajout, les pixels sont convertis soit en noir (0), soit en blanc (1).
+
+<br>
+<br>
+## ⭐⭐⭐(⭐) Normalisation de l'histogramme
+
+| Avant | Après |
+| ----------- | ----------- |
+| ![Image d'origine](images/photo.jpg) | ![Image modifiée](images/resultat/normalisation.png) |
+
+📁 [Code source](src/normalisation/main.cpp)
+
+### Description
+Dans cet exercice, un effet de normalisation de l'histogramme a été appliqué à l'image. L'algorithme détermine le pixel le plus sombre pour le transformer en noir pur `0` et le pixel le plus clair pour le transformer en blanc pur `1`, normalisant ainsi la plage de valeurs des pixels.
+
+### Spécificités
+- En utilisant les valeurs identifiées pour le pixel le plus sombre `darkPixel` et le plus clair `whitePixel`, l'algorithme normalise les valeurs RGB de chaque pixel en calculant la moyenne des composantes RGB en fonction du pixel le plus sombre et clair.
+
+### Pièges potentiels à éviter
+- Lors du calcul de normalisation, il ne faut pas oublier de multiplie par **l'inverse** de la valeur de notre pixel le plus clair pour ne pas se retrouver avec un histogramme trop sombre.
+```cpp
+    image.pixel(x, y).r = (image.pixel(x, y).r - darkPixel) * 1 / whitePixel;
+    image.pixel(x, y).g = (image.pixel(x, y).g - darkPixel) * 1 / whitePixel;
+    image.pixel(x, y).b = (image.pixel(x, y).b - darkPixel) * 1 / whitePixel;
+``` 
+<br>
+<br>
+
 ## ⭐⭐⭐⭐ Tri de pixels
 
 | Avant                        | Après                                          |

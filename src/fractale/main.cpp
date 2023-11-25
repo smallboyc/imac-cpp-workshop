@@ -4,9 +4,6 @@
 int main()
 {
     sil::Image image{500, 500};
-
-    // std::complex<float> c{3.f, 2.f}; // Définis le nombre c = 3 + 2*i
-
     for (float x{0}; x < image.width(); x++)
     {
         for (float y{0}; y < image.height(); y++)
