@@ -488,7 +488,7 @@ void createCircle(sil::Image &image, int &x, int &y, int &center_x, int &center_
     }
 }
 ```
-- L'utilité de la fonction nous permet d'entrer les nouvelles coordonnées des centres après le calcul de ce dernier via les formules de trigonométrie. On remarque 6 cercle positionnés tous les $i\pi/3$. $i$ allant donc de 1 à 6.
+- L'utilité de la fonction nous permet d'entrer les nouvelles coordonnées des centres après le calcul de ce dernier via les formules de trigonométrie. On remarque 6 cercles positionnés tous les $i\pi/3$. $i$ allant donc de 1 à 6.
  
 ```cpp
 int main()
@@ -655,8 +655,8 @@ int main()
 - Voilà le *main* avec un booléen **reverseEffect**. Si ce dernier est set à **false**, on retrouvera notre **mosaïque classique**. Sinon, on applique nos changements et **BOOM**, ça fait des chocapics !
 
 ### Pièges potentiels à éviter
-- Oublier l'**&** (Référence): Fondamentale pour garder le **lien** avec la variable d'origine, et donc de pouvoir garder et **modifier de l'information** dans une fonction. On a alors une **portée globale** (la modification d'une variable interne à la fonction a une répercussion sur la variable, partout dans le code). Il ne faut surtout pas l'oublier quand on passe l'**image** en paramètre de notre fonction.
-- Oublier de faire une **copy** de l'image dans le *main* à l'intérieur de notre boucle est une erreur. Si on cible l'image défini au début du *main* directement, le miroir appliqué à notre image ne se réinitialise pas. On travaille avec une **même image** qui **cumule les miroirs**, et on est pas au bout de nos surprises.
+- Oublier l'**&** (Référence): Fondamentale pour garder le **lien** avec la variable d'origine, et donc de pouvoir garder et **modifier de l'information** dans une fonction. On a alors une **portée globale** (la modification d'une variable interne à la fonction possède une répercussion sur la variable, partout dans le code). Il ne faut surtout pas l'oublier quand on passe l'**image** en paramètre de notre fonction.
+- Oublier de faire une **copy** de l'image dans le *main* à l'intérieur de notre boucle est une erreur. Si on cible l'image définie au début du *main* directement, le miroir appliqué à notre image ne se réinitialise pas. On travaille avec une **même image** qui **cumule les miroirs**, et on est pas au bout de nos surprises.
 <br>
 <br>
 
@@ -868,6 +868,9 @@ Pour éviter que celle-ci ne s'ajoute pas lorsque des pixels dépassent l'image.
 - Ne pas ajouter de nouvelle image sinon chaque pixel modifié sera pris en compte par son pixel voisin. Les pixels qui se transforment se base donc sur des pixels déjà transformés. L'effet ne marcherai donc pas.
 - Oublier de changer la valeur du booléen `divide` lorsqu'elle doit être pris en compte ou non (exemple pour l'effet outline, on ne doit pas diviser car on diviserait par 0 !).
 
+  <br>
+  <br>
+
 ## ⭐⭐⭐⭐ Tri de pixels
 
 | Avant                        | Après                                          |
@@ -894,7 +897,7 @@ float brightness(glm::vec3 &color)
 }
 ```
 
-- L'idée est de s'inspirer du glitch en sélectionnant un rectangle de pixel. On trouve aléatoirement un pixel de départ sur l'image et on parcourt une taille généré aléatoirement (pas trop grande non plus) et on fixe pour ce code `y` à 1.
+- L'idée est de s'inspirer du glitch en sélectionnant un rectangle de pixel. On trouve aléatoirement un pixel de départ sur l'image et on parcourt une taille générée aléatoirement (pas trop grande non plus) et on fixe pour ce code `y` à 1.
 ```cpp
   glm::vec2 inputPositionStart{random_int(0, image.width()), random_int(0, image.height())};
   glm::vec2 rectangleSize{random_int(20, 30), 1};
