@@ -68,7 +68,7 @@ int main()
 | ---------------------------- | ----------------------------------------- |
 | ![alt text](images/logo.png) | ![alt text](images/resultat/exchange.png) |
 
-📁 [Code source](https://github.com/smallboyc/imac-cpp-workshop/blob/main/src/exchange/main.cpp)
+📁 [Code source](https://github.com/smallboyc/imac-cpp-workshop/blob/main/src/switch_color/main.cpp)
 
 ### Description :
 
@@ -139,7 +139,7 @@ Dans le code ci-dessus, on se retrouve avec un canal bleu ayant la même valeur 
 
 ### Spécificités :
 
-- Il faut faire la moyenne de la somme des composantes RGB de chaque pixel et attribuer à chaque canaux le résultat de ce calcul. Ce résultat se nomme **la nuance de gris**.
+- Il faut faire la moyenne de la somme des composantes RGB de chaque pixel et attribuer à chaque canal le résultat de ce calcul. Ce résultat se nomme **la nuance de gris**.
 ```cpp
 int main()
 {
@@ -174,7 +174,7 @@ int main()
 
 - Analysons... On veut que :
 > 0 ➡️ 1, 1 ➡️ 0, 0.8 ➡️ 0.2 ...
-- En généralisant? on devine la formule : **f(x) = 1 - x**
+- En généralisant, on devine la formule : **f(x) = 1 - x**
 - Il suffit donc d'**appliquer cette formule** aux composantes RGB de tous nos pixels !
 
 <br>
@@ -184,7 +184,7 @@ int main()
 
 <img src="images/resultat/gradient.png" alt="drawing" width="420"/>
 
-📁 [Code source](https://github.com/smallboyc/imac-cpp-workshop/blob/main/src/mosaique_miroir/main.cpp)
+📁 [Code source](https://github.com/smallboyc/imac-cpp-workshop/blob/main/src/gradient/main.cpp)
 
 ### Description :
 
@@ -247,7 +247,7 @@ int main()
 ### Spécificités :
 
 - L'idée est de parcourir chaque pixel et d'échanger le pixel concerné par le pixel qui lui est **opposé en x**.
-- Il faut cependant seulement **parcourir le moitié de la largeur**. En effet, arrivé à la moitié, notre image aura déjà été inversée.
+- Il faut cependant seulement **parcourir la moitié de la largeur**. En effet, arrivé à la moitié, notre image aura déjà été inversée.
   
 ```cpp
 int main()
@@ -263,7 +263,7 @@ int main()
 }
 ```
 
-### Potentiels problèmes
+### Pièges potentiels à éviter
 - Parcourir la totalité de la **width**. La conséquence, c'est d'avoir une image **similaire** à celle d'origine. En réalité, elle aura été inversée **2 fois**.
 
 <br>
@@ -345,7 +345,7 @@ int main()
 | ----------- | ----------- |
 | ![Image d'origine](images/logo.png) | ![Image modifiée](images/resultat/rgb_split.png) |
 
-📁 [Code source](src/rgb_split/main.cpp)
+📁 [Code source](https://github.com/smallboyc/imac-cpp-workshop/blob/main/src/RGB_split/main.cpp)
 
 ### Description
 Dans cet exercice, un effet de séparation des canaux RGB (RGB split) a été appliqué à l'image. L'algorithme modifie les canaux Rouge (R), Vert (G), et Bleu (B) de l'image pour créer une version où chaque canal est décalé par rapport aux autres.
@@ -367,7 +367,7 @@ Dans cet exercice, un effet de séparation des canaux RGB (RGB split) a été ap
 | --- | :-: |  --: |
 | ![Image modifiée sombre](images/resultat/sombre.png) | ![Image d'origine](images/photo.jpg) | ![Image modifiée claire](images/resultat/clair.png) |
 
-📁 [Code source](src/luminosite/main.cpp)
+📁 [Code source](https://github.com/smallboyc/imac-cpp-workshop/blob/main/src/luminosite/main.cpp)
 
 ### Description
 Dans cet exercice, un effet d'assombrissement ou d'éclaircissement de l'image a été appliqué en utilisant une variable `number`. Cette variable est utilisée pour modifier la puissance des canaux Rouge (R), Vert (G) et Bleu (B) de chaque pixel de l'image.
@@ -389,7 +389,7 @@ Dans cet exercice, un effet d'assombrissement ou d'éclaircissement de l'image a
 | --- |
 | ![Image d'origine](images/resultat/disque.png) |
 
-📁 [Code source](src/disque/main.cpp)
+📁 [Code source](https://github.com/smallboyc/imac-cpp-workshop/blob/main/src/disque/main.cpp)
 
 ### Description
 Dans cet exercice, la formation d'un disque a été appliqué à une image de 500x500. L'algorithme remplit les pixels de l'image pour former un disque centré sur l'image.
@@ -427,7 +427,7 @@ int main()
 | --- |
 | ![Image d'origine](images/resultat/cercle.png) |
 
-📁 [Code source](src/cercle/main.cpp)
+📁 [Code source](https://github.com/smallboyc/imac-cpp-workshop/blob/main/src/cercle/main.cpp)
 
 ### Description
 Dans cet exercice, la formation d'un cercle a été appliqué à une image de 500x500. L'algorithme dessine un cercle avec un rayon et une épaisseur de contours variable.
@@ -466,7 +466,7 @@ int main()
 | --- |
 | ![Image d'origine](images/resultat/rosace.png) |
 
-📁 [Code source](src/rosace/main.cpp)
+📁 [Code source](https://github.com/smallboyc/imac-cpp-workshop/blob/main/src/rosace/main.cpp)
 
 
 ### Description
@@ -527,7 +527,7 @@ int main()
 | ----------- | ----------- |
 | ![Image d'origine](images/logo.png) | <img src="images/resultat/mosaique.png" alt="Image modifiée" width="300"/> |
 
-📁 [Code source](src/mosaique/main.cpp)
+📁 [Code source](https://github.com/smallboyc/imac-cpp-workshop/blob/main/src/mosaique/main.cpp)
 
 ### Description
 Dans cet exercice, un effet de mosaïque a été appliqué à l'image en utilisant une version agrandie de l'image originale. L'algorithme divise l'image en une grille de carrés identiques et place des copies de l'image originale dans chaque carré.
@@ -716,7 +716,7 @@ int main()
 | --- |
 |![Image](images/resultat/fractale.png) |
 
-📁 [Code source](src/fractale/main.cpp)
+📁 [Code source](https://github.com/smallboyc/imac-cpp-workshop/blob/main/src/fractale/main.cpp)
 
 ### Description
 Dans cet exercice, un algorithme génère une image représentant la fractale de Mandelbrot. La fractale de Mandelbrot est un ensemble de points complexes dans le plan complexe qui produit une forme fractale lorsqu'elle est visualisée.
@@ -772,7 +772,7 @@ int main()
 | ----------- | ----------- |
 | ![Image d'origine](images/logo.png) | ![Image modifiée](images/resultat/vortex.png) |
 
-📁 [Code source](src/vortex/main.cpp)
+📁 [Code source](https://github.com/smallboyc/imac-cpp-workshop/blob/main/src/vortex/main.cpp)
 
 ### Description
 Dans cet exercice, un effet de vortex a été appliqué à l'image. L'algorithme effectue une transformation de chaque pixel en utilisant une rotation autour d'un centre donné.
@@ -798,7 +798,7 @@ voidImage.pixel(x, y) = image.pixel(newPoint.x, newPoint.y);
 | ----------- | ----------- |
 | ![Image d'origine](images/photo.jpg) | ![Image modifiée](images/resultat/bayer.png) |
 
-📁 [Code source](src/bayer/main.cpp)
+📁 [Code source](https://github.com/smallboyc/imac-cpp-workshop/blob/main/src/bayer/main.cpp)
 
 
 ### Description
@@ -818,7 +818,7 @@ Dans cet exercice, un effet de tramage a été appliqué à l'image. L'algorithm
 | ----------- | ----------- |
 | ![Image d'origine](images/photo.jpg) | ![Image modifiée](images/resultat/normalisation.png) |
 
-📁 [Code source](src/normalisation/main.cpp)
+📁 [Code source](https://github.com/smallboyc/imac-cpp-workshop/blob/main/src/normalisation/main.cpp)
 
 ### Description
 Dans cet exercice, un effet de normalisation de l'histogramme a été appliqué à l'image. L'algorithme détermine le pixel le plus sombre pour le transformer en noir pur `0` et le pixel le plus clair pour le transformer en blanc pur `1`, normalisant ainsi la plage de valeurs des pixels.
@@ -842,7 +842,7 @@ Dans cet exercice, un effet de normalisation de l'histogramme a été appliqué 
 | ----------- | ----------- |
 | ![Image d'origine](images/logo.png) | ![Image modifiée](images/resultat/convolution.png) |
 
-📁 [Code source](src/blur/main.cpp)
+📁 [Code source](https://github.com/smallboyc/imac-cpp-workshop/blob/main/src/blur/main.cpp)
 
 
 ### Description
