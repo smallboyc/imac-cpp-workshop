@@ -14,16 +14,16 @@
 
 ## :triangular_flag_on_post: Les bases
 
-On utilise la bibliothèque **sil**.
+On utilise la librairie **sil**.
 
 - **sil** nous permet de lire, éditer (via les pixels) et sauvegarder des images.
 
 ```cpp
 #include <sil/sil.hpp> //Directive de préprocesseur pour inclure sil
 
- sil::Image image{"mon_image.png"}; //Import d'une image
+sil::Image image{"mon_image.png"}; //Import d'une image
 
-    image.save("resultat.png"); //Sauvegarde et affichage de l'image
+image.save("resultat.png"); //Sauvegarde et affichage de l'image
 ```
 <br>
 <br>
@@ -39,11 +39,11 @@ On utilise la bibliothèque **sil**.
 
 ### Description :
 
-- On souhaite simplement garder active la composante Verte.
+- On souhaite simplement garder la composante Verte active.
 
 ### Spécificités :
 
-- Il suffit de rendre nulle les composantes rouge et bleu de chaque pixels en les parcourant.
+- Il suffit de rendre nulles les composantes rouge et bleu de chaque pixel en les parcourant.
 
 ```cpp
 int main()
@@ -104,9 +104,9 @@ int main()
 ```
 ❗**Bien que ce code ne soit pas imposant. La méthode 2 est intéressante pour un code plus lisible et optimisé.**
 
-### Potentiels problèmes
+### Pièges potentiels à éviter
 
-- Écraser une variable
+- Écraser une variable.
 ```cpp
 int main()
 {
@@ -139,7 +139,7 @@ Dans le code ci-dessus, on se retrouve avec un canal bleu ayant la même valeur 
 
 ### Spécificités :
 
-- Il faut faire la moyenne de la somme des composantes RGB de chaque pixels, et attribuer à chaque canaux le résultat de ce calcul. Ce résultat se nomme **la nuance de gris**.
+- Il faut faire la moyenne de la somme des composantes RGB de chaque pixel et attribuer à chaque canaux le résultat de ce calcul. Ce résultat se nomme **la nuance de gris**.
 ```cpp
 int main()
 {
@@ -174,7 +174,7 @@ int main()
 
 - Analysons... On veut que :
 > 0 ➡️ 1, 1 ➡️ 0, 0.8 ➡️ 0.2 ...
-- En généralisant on devine la formule : **f(x) = 1 - x**
+- En généralisant? on devine la formule : **f(x) = 1 - x**
 - Il suffit donc d'**appliquer cette formule** aux composantes RGB de tous nos pixels !
 
 <br>
@@ -188,13 +188,13 @@ int main()
 
 ### Description :
 
-- On souhaite parcourir toute notre largeur en passant progressivement du noir au blanc.
+- On souhaite parcourir toute notre largeur en passant **progressivement** du noir au blanc.
 
 ### Spécificités :
 
-- On remarque que si on fixe un **x** quelconque, les **y** correspondant ne changent pas. On a donc des lignes verticales de même valeur.
-- **x** varie de **0** à **width - 1** (largeur de l'image).
-- La variation de teinte doit donc prendre en compte la **width** (largeur) et la variable **x**.
+- On remarque que si on fixe un `x` quelconque, les `y` correspondant ne changent pas. On a donc des lignes verticales de même valeur.
+- `x` varie de **0** à **width - 1** (largeur de l'image).
+- La variation de teinte doit donc prendre en compte la **width** (largeur) et la variable `x`.
 - On doit faire le rapport **x / (width - 1)** pour chaque pixel. En effet, ce rapport nous donne 1 si on arrive au dernier pixel et 0 au départ. L'incrément nous donnera une valeur de plus en plus blanche. **BINGO !** 😜
 
 
@@ -215,7 +215,7 @@ int main()
 }
 ```
 
-### Potentiels problèmes
+### Pièges potentiels à éviter
 
 - Remplacer le **float** par un **int**. 
 - Les valeurs prises par les composantes RGB sont des nombres décimaux variants de 0 à 1.
@@ -377,7 +377,7 @@ Dans cet exercice, un effet d'assombrissement ou d'éclaircissement de l'image a
 - La fonction `pow` est utilisée pour augmenter ou diminuer la valeur des canaux RVB en fonction de la valeur de `number`, ce qui permet de contrôler l'intensité lumineuse des pixels.
 
 ### Pièges potentiels à éviter
-- Multiplier les valeurs sans les fonctions puissances. Cela nous donnerait un resultat trop saturé.
+- Multiplier les valeurs sans les fonctions puissances. Cela nous donnerait un résultat trop saturé.
 
 <br>
 <br>
@@ -654,7 +654,7 @@ int main()
 ```
 - Voilà le *main* avec un booléen **reverseEffect**. Si ce dernier est set à **false**, on retrouvera notre **mosaïque classique**. Sinon, on applique nos changements et **BOOM**, ça fait des chocapics !
 
-### Potentiels problèmes
+### Pièges potentiels à éviter
 - Oublier l'**&** (Référence): Fondamentale pour garder le **lien** avec la variable d'origine, et donc de pouvoir garder et **modifier de l'information** dans une fonction. On a alors une **portée globale** (la modification d'une variable interne à la fonction a une répercussion sur la variable, partout dans le code). Il ne faut surtout pas l'oublier quand on passe l'**image** en paramètre de notre fonction.
 - Oublier de faire une **copy** de l'image dans le *main* à l'intérieur de notre boucle est une erreur. Si on cible l'image défini au début du *main* directement, le miroir appliqué à notre image ne se réinitialise pas. On travaille avec une **même image** qui **cumule les miroirs**, et on est pas au bout de nos surprises.
 <br>
@@ -705,7 +705,7 @@ int main()
     image.save("output/pouet.png");
 }
 ```
-### Potentiels problèmes
+### Pièges potentiels à éviter
 - Oublier de vérifier si les pixels sont dans l'image.
 <br>
 <br>
@@ -786,7 +786,7 @@ Dans cet exercice, un effet de vortex a été appliqué à l'image. L'algorithme
 - Attribuer les nouvelles coordonnées `newPoint.x, newPoint.y` de la nouvelle image `voidImage`. -> Notre transformation serait décalé par rapport au centre `x,y` de notre image d'origine.
 ```cpp
 if (newPoint.x < image.width() && newPoint.x >= 0 && newPoint.y < image.height() && newPoint.y >= 0)
-    voidImage.pixel(x, y) = image.pixel(newPoint.x, newPoint.y);
+voidImage.pixel(x, y) = image.pixel(newPoint.x, newPoint.y);
 ```
 
 <br>
@@ -811,6 +811,7 @@ Dans cet exercice, un effet de tramage a été appliqué à l'image. L'algorithm
 
 <br>
 <br>
+
 ## ⭐⭐⭐(⭐) Normalisation de l'histogramme
 
 | Avant | Après |
@@ -834,6 +835,38 @@ Dans cet exercice, un effet de normalisation de l'histogramme a été appliqué 
 ``` 
 <br>
 <br>
+
+## ⭐⭐⭐⭐ Convolutions
+
+| Avant | Après |
+| ----------- | ----------- |
+| ![Image d'origine](images/logo.png) | ![Image modifiée](images/resultat/convolution.png) |
+
+📁 [Code source](src/blur/main.cpp)
+
+
+### Description
+La convolution est le traitement d'une matrice (les pixels de notre image) par une autre petite matrice appelée matrice de convolution ou noyau (kernel). On utilise la convolution pour appliquer des transformations telles que le flou, la netteté, la détection de contours, etc...
+
+### Spécificités
+- Une fonction `setEffect` est utilisée pour appliquer la convolution à chaque pixel de l'image en utilisant un kernel prédéfini.
+- Pour effectuer un flou simple, le kernel utilisé est une matrice 3x3 de valeurs prédéfinies. Chaque valeur du kernel multiplie les valeurs des pixels voisins, puis les valeurs résultantes sont utilisées pour former les pixels de la nouvelle image grâce à la moyenne des pixels environnants et du noyau.
+- Selon le kernel et les valeurs des pixels environnants, différents effets peuvent être obtenus. Il est modulable avec les kernels proposés en commentaire.
+- En fonction du kernel, une division peut être appliqué. Un booléen `divide` est alors mis en place pour être activé comme bon nous semble lorsque cela est nécessaire.
+
+### Pièges potentiels à éviter
+- Ne pas incrémenter la variable `number` comme ceci :
+Pour éviter que celle-ci ne s'ajoute pas lorsque des pixels dépassent l'image. Le kernel ne fonctionnerait donc pas sur les bords de l'image et serait faussé.
+```cpp
+        if (x + i >= 0 && x + i < image.width() && y + j >= 0 && y + j < image.height())
+        {
+            result += image.pixel(x + i, y + j) * kernel[number];
+            total += kernel[number];
+            number++;
+        }
+```
+- Ne pas ajouter de nouvelle image sinon chaque pixel modifié sera pris en compte par son pixel voisin. Les pixels qui se transforment se base donc sur des pixels déjà transformés. L'effet ne marcherai donc pas.
+- Oublier de changer la valeur du booléen `divide` lorsqu'elle doit être pris en compte ou non (exemple pour l'effet outline, on ne doit pas diviser car on diviserait par 0 !).
 
 ## ⭐⭐⭐⭐ Tri de pixels
 
@@ -909,6 +942,6 @@ int main()
     image.save("output/pouet.png");
 }
 ```
-### Potentiels problèmes
+### Pièges potentiels à éviter
 - Oublier le `count`. Cette variable est essentielle pour être certain de parcourir tout notre tableau trié et ainsi de placer les pixels au bon endroit.
 - Ne pas vérifier les bornes. Il faut en effet s'assurer que les pixels que l'on manipule se trouvent dans l'image.

@@ -2,15 +2,15 @@
 #include <sil/sil.hpp>
 #include <vector>
 
-void getBlur(sil::Image &image, sil::Image &newImage)
+void setEffect(sil::Image &image, sil::Image &newImage)
 {
     // identity : 0,0,0,0,1,0,0,0,0
     // sharpen : 0,-1,0,-1,5,-1,0,-1,0
     // emboss : 0,-1,-2,1,1,-1,2,1,0
     // outline : -1, -1, -1, -1, 8, -1, -1, -1, -1
     // blur : 1,2,1,2,4,2,1,2,1
-    std::vector<float> kernel{1, 2, 1, 2, 4, 2, 1, 2, 1};
-    bool divide{true};
+    std::vector<float> kernel{-1, -1, -1, -1, 8, -1, -1, -1, -1};
+    bool divide{false};
     for (int x{0}; x < image.width(); x++)
     {
         for (int y{0}; y < image.height(); y++)
@@ -40,8 +40,8 @@ void getBlur(sil::Image &image, sil::Image &newImage)
 
 int main()
 {
-    sil::Image image{"images/arcane.jpg"};
+    sil::Image image{"images/logo.png"};
     sil::Image newImage{image.width(), image.height()};
-    getBlur(image, newImage);
+    setEffect(image, newImage);
     newImage.save("output/pouet.png");
 }
