@@ -838,9 +838,11 @@ Dans cet exercice, un effet de normalisation de l'histogramme a été appliqué 
 
 ## ⭐⭐⭐⭐ Convolutions
 
-| Avant | Après |
-| ----------- | ----------- |
-| ![Image d'origine](images/logo.png) | ![Image modifiée](images/resultat/convolution.png) |
+| Avant | Outline | Emboss |
+| ----------- | ----------- | ----------- |
+|![Image d'origine](images/akira.jpg)  | ![Image modifiée claire](images/resultat/akira_2.png)  |  ![Image modifiée sombre](images/resultat/akira_1.png) |
+
+
 
 📁 [Code source](https://github.com/smallboyc/imac-cpp-workshop/blob/main/src/blur/main.cpp)
 

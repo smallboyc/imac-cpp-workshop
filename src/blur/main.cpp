@@ -24,10 +24,11 @@ void setEffect(sil::Image &image, sil::Image &newImage)
                 for (int j{-1}; j <= 1; j++)
                 {
                     if (x + i >= 0 && x + i < image.width() && y + j >= 0 && y + j < image.height())
-                    {
                         result += image.pixel(x + i, y + j) * kernel[number];
-                        total += kernel[number];
-                    }
+                    else
+                        result += image.pixel(x, y) * kernel[number];
+
+                    total += kernel[number];
                     number++;
                 }
             }
@@ -40,7 +41,7 @@ void setEffect(sil::Image &image, sil::Image &newImage)
 
 int main()
 {
-    sil::Image image{"images/logo.png"};
+    sil::Image image{"images/akira.jpg"};
     sil::Image newImage{image.width(), image.height()};
     setEffect(image, newImage);
     newImage.save("output/pouet.png");
