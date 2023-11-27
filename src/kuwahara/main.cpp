@@ -64,15 +64,22 @@ glm::vec3 varianceSecteur(sil::Image &image, std::array<std::array<int, 2>, 2> &
     return variance;
 }
 
+void calculSecteur(sil::Image &image, std::vector<std::array<glm::vec3, 2>> &table, std::array<std::array<int, 2>, 2> &sector, int &x, int &y)
+{
+    glm::vec3 moyenne{moyenneSecteur(image, sector, x, y)};
+    table.push_back({moyenne, varianceSecteur(image, sector, x, y, moyenne)});
+}
+
 int main()
 {
-    sil::Image image{"images/photo.jpg"};
+    sil::Image image{"images/tlouII.jpg"};
     sil::Image voidImage{image.width(), image.height()};
+    int factor{4};
 
-    std::array<std::array<int, 2>, 2> secteur_1{std::array{0, 2}, std::array{0, 2}}; // {x,y}
-    std::array<std::array<int, 2>, 2> secteur_2{std::array{0, 2}, std::array{0, -2}};
-    std::array<std::array<int, 2>, 2> secteur_3{std::array{0, -2}, std::array{0, -2}};
-    std::array<std::array<int, 2>, 2> secteur_4{std::array{0, -2}, std::array{0, 2}};
+    std::array<std::array<int, 2>, 2> secteur_1{std::array{0, factor}, std::array{0, factor}};
+    std::array<std::array<int, 2>, 2> secteur_2{std::array{0, factor}, std::array{0, -factor}};
+    std::array<std::array<int, 2>, 2> secteur_3{std::array{0, -factor}, std::array{0, -factor}};
+    std::array<std::array<int, 2>, 2> secteur_4{std::array{0, -factor}, std::array{0, factor}};
 
     // Parcours de tous les pixels
     for (int x{0}; x < image.width(); x++)
@@ -81,14 +88,10 @@ int main()
         {
             std::vector<std::array<glm::vec3, 2>> varianceTable;
 
-            std::array<glm::vec3, 2> calcul_secteur1{moyenneSecteur(image, secteur_1, x, y), varianceSecteur(image, secteur_1, x, y, moyenneSecteur(image, secteur_1, x, y))};
-            varianceTable.push_back(calcul_secteur1);
-            std::array<glm::vec3, 2> calcul_secteur2{moyenneSecteur(image, secteur_2, x, y), varianceSecteur(image, secteur_2, x, y, moyenneSecteur(image, secteur_2, x, y))};
-            varianceTable.push_back(calcul_secteur2);
-            std::array<glm::vec3, 2> calcul_secteur3{moyenneSecteur(image, secteur_3, x, y), varianceSecteur(image, secteur_3, x, y, moyenneSecteur(image, secteur_3, x, y))};
-            varianceTable.push_back(calcul_secteur3);
-            std::array<glm::vec3, 2> calcul_secteur4{moyenneSecteur(image, secteur_4, x, y), varianceSecteur(image, secteur_4, x, y, moyenneSecteur(image, secteur_4, x, y))};
-            varianceTable.push_back(calcul_secteur4);
+            calculSecteur(image, varianceTable, secteur_1, x, y);
+            calculSecteur(image, varianceTable, secteur_2, x, y);
+            calculSecteur(image, varianceTable, secteur_3, x, y);
+            calculSecteur(image, varianceTable, secteur_4, x, y);
 
             // On veut la variance la plus faible, ici à l'indice 0
             std::sort(

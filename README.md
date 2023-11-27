@@ -104,7 +104,7 @@ int main()
 ```
 ❗**Bien que ce code ne soit pas imposant. La méthode 2 est intéressante pour un code plus lisible et optimisé.**
 
-### Pièges potentiels à éviter
+### Pièges potentiels à éviter :
 
 - Écraser une variable.
 ```cpp
@@ -215,7 +215,7 @@ int main()
 }
 ```
 
-### Pièges potentiels à éviter
+### Pièges potentiels à éviter :
 
 - Remplacer le **float** par un **int**. 
 - Les valeurs prises par les composantes RGB sont des nombres décimaux variants de 0 à 1.
@@ -263,7 +263,7 @@ int main()
 }
 ```
 
-### Pièges potentiels à éviter
+### Pièges potentiels à éviter :
 - Parcourir la totalité de la **width**. La conséquence, c'est d'avoir une image **similaire** à celle d'origine. En réalité, elle aura été inversée **2 fois**.
 
 <br>
@@ -354,7 +354,7 @@ Dans cet exercice, un effet de séparation des canaux RGB (RGB split) a été ap
 - Trois boucles distinctes sont utilisées pour traiter séparément les composantes Rouge, Vert et Bleu de chaque pixel de l'image.
 - Pour chaque composante de couleur, une boucle spécifique effectue un décalage des pixels à gauche ou à droite en fonction du canal (R, G ou B) tout en conservant les autres canaux.
 
-### Pièges potentiels à éviter
+### Pièges potentiels à éviter :
 - Ne pas oublier de décaler les valeurs de pixels.
 - Modifier l'image d'origine. Les calculs seront faussés par les précédentes modifications effectués sur les pixels qui ont été réattribués à l'image d'origine.
 
@@ -376,7 +376,7 @@ Dans cet exercice, un effet d'assombrissement ou d'éclaircissement de l'image a
 - Une boucle parcourt chaque pixel de l'image et ajuste la valeur de chaque composante de couleur en fonction de la valeur de `number`.
 - La fonction `pow` est utilisée pour augmenter ou diminuer la valeur des canaux RVB en fonction de la valeur de `number`, ce qui permet de contrôler l'intensité lumineuse des pixels.
 
-### Pièges potentiels à éviter
+### Pièges potentiels à éviter :
 - Multiplier les valeurs sans les fonctions puissances. Cela nous donnerait un résultat trop saturé.
 
 <br>
@@ -514,7 +514,7 @@ int main()
     image.save("output/pouet.png");
 }
 ```
-### Pièges potentiels à éviter
+### Pièges potentiels à éviter :
 - Oublier d'ajouter un nouveau centre pour chaque cercle en fonction du centre de base.
 - Oublier les passages par référence.
 
@@ -567,7 +567,7 @@ int main()
 }
 ```
 
-### Pièges potentiels à éviter
+### Pièges potentiels à éviter :
 - Oublier de créer une nouvelle image pour y implanter nos autres images.
 - Oublier les références (surtout sur `newImage`).
 
@@ -654,7 +654,7 @@ int main()
 ```
 - Voilà le *main* avec un booléen **reverseEffect**. Si ce dernier est set à **false**, on retrouvera notre **mosaïque classique**. Sinon, on applique nos changements et **BOOM**, ça fait des chocapics !
 
-### Pièges potentiels à éviter
+### Pièges potentiels à éviter :
 - Oublier l'**&** (Référence): Fondamentale pour garder le **lien** avec la variable d'origine, et donc de pouvoir garder et **modifier de l'information** dans une fonction. On a alors une **portée globale** (la modification d'une variable interne à la fonction possède une répercussion sur la variable, partout dans le code). Il ne faut surtout pas l'oublier quand on passe l'**image** en paramètre de notre fonction.
 - Oublier de faire une **copy** de l'image dans le *main* à l'intérieur de notre boucle est une erreur. Si on cible l'image définie au début du *main* directement, le miroir appliqué à notre image ne se réinitialise pas. On travaille avec une **même image** qui **cumule les miroirs**, et on est pas au bout de nos surprises.
 <br>
@@ -705,7 +705,7 @@ int main()
     image.save("output/pouet.png");
 }
 ```
-### Pièges potentiels à éviter
+### Pièges potentiels à éviter :
 - Oublier de vérifier si les pixels sont dans l'image.
 <br>
 <br>
@@ -760,7 +760,7 @@ int main()
 }
 ```
 
-### Pièges potentiels à éviter
+### Pièges potentiels à éviter :
 - L'utilisation d'un booléen pour la boucle while. L'algorithme ne parviendrai pas à sortir de la boucle.
   
 <br>
@@ -781,7 +781,7 @@ Dans cet exercice, un effet de vortex a été appliqué à l'image. L'algorithme
 - Une fonction `rotated` est utilisée pour effectuer la rotation des pixels autour d'un centre de rotation.
 - La transformation de rotation est appliqué en fonction de la distance par rapport au centre de l'image.
 
-### Pièges potentiels à éviter
+### Pièges potentiels à éviter :
 - Sortir de l'image en remplaçant les pixels.
 - Attribuer les nouvelles coordonnées `newPoint.x, newPoint.y` de la nouvelle image `voidImage`. -> Notre transformation serait décalé par rapport au centre `x,y` de notre image d'origine.
 ```cpp
@@ -826,7 +826,7 @@ Dans cet exercice, un effet de normalisation de l'histogramme a été appliqué 
 ### Spécificités
 - En utilisant les valeurs identifiées pour le pixel le plus sombre `darkPixel` et le plus clair `whitePixel`, l'algorithme normalise les valeurs RGB de chaque pixel en calculant la moyenne des composantes RGB en fonction du pixel le plus sombre et clair.
 
-### Pièges potentiels à éviter
+### Pièges potentiels à éviter :
 - Lors du calcul de normalisation, il ne faut pas oublier de multiplie par **l'inverse** de la valeur de notre pixel le plus clair pour ne pas se retrouver avec un histogramme trop sombre.
 ```cpp
     image.pixel(x, y).r = (image.pixel(x, y).r - darkPixel) * 1 / whitePixel;
@@ -856,7 +856,7 @@ La convolution est le traitement d'une matrice (les pixels de notre image) par u
 - Selon le kernel et les valeurs des pixels environnants, différents effets peuvent être obtenus. Il est modulable avec les kernels proposés en commentaire.
 - En fonction du kernel, une division peut être appliqué. Un booléen `divide` est alors mis en place pour être activé comme bon nous semble lorsque cela est nécessaire.
 
-### Pièges potentiels à éviter
+### Pièges potentiels à éviter :
 - Ne pas incrémenter la variable `number` comme ceci :
 Pour éviter que celle-ci ne s'ajoute pas lorsque des pixels dépassent l'image. Le kernel ne fonctionnerait donc pas sur les bords de l'image et serait faussé.
 ```cpp
@@ -947,6 +947,139 @@ int main()
     image.save("output/pouet.png");
 }
 ```
-### Pièges potentiels à éviter
+### Pièges potentiels à éviter :
 - Oublier le `count`. Cette variable est essentielle pour être certain de parcourir tout notre tableau trié et ainsi de placer les pixels au bon endroit.
 - Ne pas vérifier les bornes. Il faut en effet s'assurer que les pixels que l'on manipule se trouvent dans l'image.
+  
+<br>
+<br>
+
+## ⭐⭐⭐⭐⭐ Filtre de Kuwahara
+
+| Avant                        | Après                                          |
+| ---------------------------- | ---------------------------------------------- |
+| ![alt text](images/tlou.jpg) | ![alt text](images/resultat/tlou.png) |
+
+📁 [Code source](https://github.com/smallboyc/imac-cpp-workshop/blob/main/src/kuwahara/main.cpp)
+
+
+### Description :
+
+- Transformer une image en peinture à l'huile, c'est très stylé.
+- On prend un pixel, supposons qu'il soit central à un carré de pixel de 5x5. Découpons ce carré en 4 secteurs.
+- En travaillant sur chaque secteur, on doit calculer la moyenne des pixels le composant, puis définir un écart type à partir de cette moyenne. On compare les écarts types des 4 secteurs. On retient la moyenne du secteur ayant le plus petit écart type et on applique cette moyenne au pixel central.
+
+### Spécificités :
+- Dans le `main`, définissons nos secteurs. `factor` nous permet de savoir de combien de pixel on veut parcourir notre secteur. Plus `factor` est grand, plus l'effet de peinture sera important.
+```cpp
+int factor{4};
+
+std::array<std::array<int, 2>, 2> secteur_1{std::array{0, factor}, std::array{0, factor}};
+std::array<std::array<int, 2>, 2> secteur_2{std::array{0, factor}, std::array{0, -factor}};
+std::array<std::array<int, 2>, 2> secteur_3{std::array{0, -factor}, std::array{0, -factor}};
+std::array<std::array<int, 2>, 2> secteur_4{std::array{0, -factor}, std::array{0, factor}};
+```
+- Calculons d'abord la moyenne de nos secteurs à partir de la fonction `moyenneSecteur`. La subtilité ici, c'est de définir des variables `increase_i` et `increase_j` qui prendront une valeur de +1 ou -1 en fonction de la technique de parcours du secteur (ex: si on va de 0 vers -2, on veut décrémenter donc -1 pour chaque itération de boucle).
+```cpp
+glm::vec3 moyenneSecteur(sil::Image &image, std::array<std::array<int, 2>, 2> &secteur, int &x, int &y)
+{
+    int increase_i{1};
+    int increase_j{1};
+    // J'ajoute ou je retire ?
+    if (secteur[0][1] < 0)
+        increase_i = -1;
+    if (secteur[1][1] < 0)
+        increase_j = -1;
+
+    // On détermine la moyenne du secteur
+    glm::vec3 moyenne_secteur{0.f};
+    int count{0};
+    for (int i{secteur[0][0]}; i != secteur[0][1] + increase_i; i += increase_i)
+    {
+        for (int j{secteur[1][0]}; j != secteur[1][1] + increase_j; j += increase_j)
+        {
+            if (x + i >= 0 && x + i < image.width() && y + j >= 0 && y + j < image.height())
+            {
+                moyenne_secteur += image.pixel(x + i, y + j);
+                count++;
+            }
+        }
+    }
+    moyenne_secteur /= (float)(count);
+
+    return moyenne_secteur;
+}
+```
+- On calcule ensuite la variance dans une fonction `varianceSecteur`. Même logique de parcours que pour la moyenne sauf qu'on applique la formule de la variance, et on oublie pas de passer la **moyenne** précédemment calculée en paramètre.
+  
+```cpp
+glm::vec3 varianceSecteur(sil::Image &image, std::array<std::array<int, 2>, 2> &secteur, int &x, int &y, glm::vec3 moyenne_secteur)
+{
+    int increase_i{1};
+    int increase_j{1};
+    // J'ajoute ou je retire ?
+    if (secteur[0][1] < 0)
+        increase_i = -1;
+    if (secteur[1][1] < 0)
+        increase_j = -1;
+    // On détermine la variance du secteur
+    glm::vec3 variance{0.f};
+    int count{0};
+    for (int i{secteur[0][0]}; i != secteur[0][1] + increase_i; i += increase_i)
+    {
+        for (int j{secteur[1][0]}; j != secteur[1][1] + increase_j; j += increase_j)
+        {
+            if (x + i >= 0 && x + i < image.width() && y + j >= 0 && y + j < image.height())
+            {
+                variance += (image.pixel(x + i, y + j) - moyenne_secteur) * (image.pixel(x + i, y + j) - moyenne_secteur);
+                count++;
+            }
+        }
+    }
+    variance /= (float)(count);
+
+    variance = sqrt(variance);
+
+    return variance;
+}
+```
+- On créé une fonction `calculSecteur` qui permet d'envoyer toute les propriétés de notre secteur, tel que la `moyenne` et la `variance`. On **push** notre secteur dans un tableau qui permettra ensuite de déterminer quelle variance est la plus faible. On fait ça pour tous les secteurs.
+```cpp
+void calculSecteur(sil::Image &image, std::vector<std::array<glm::vec3, 2>> &table, std::array<std::array<int, 2>, 2> &sector, int &x, int &y)
+{
+    glm::vec3 moyenne{moyenneSecteur(image, sector, x, y)};
+    table.push_back({moyenne, varianceSecteur(image, sector, x, y, moyenne)});
+}
+```
+- Dans le `main`, on appelle la fonction `calculSecteur` pour nos différents secteurs.
+- On utilise la fonction `sort` qui va nous trier le tableau en question et nous mettre le secteur ayant la plus faible variance en position 0. Ainsi, on récupère à cet indice le secteur. En ciblant l'élément 0 du secteur, nous récupérons la valeur de la moyenne que l'on passe à notre pixel !
+```cpp
+for (int x{0}; x < image.width(); x++)
+    {
+        for (int y{0}; y < image.height(); y++)
+        {
+            std::vector<std::array<glm::vec3, 2>> varianceTable;
+
+            calculSecteur(image, varianceTable, secteur_1, x, y);
+            calculSecteur(image, varianceTable, secteur_2, x, y);
+            calculSecteur(image, varianceTable, secteur_3, x, y);
+            calculSecteur(image, varianceTable, secteur_4, x, y);
+
+            // On veut la variance la plus faible, ici à l'indice 0
+            std::sort(
+                varianceTable.begin(),
+                varianceTable.end(),
+                [](std::array<glm::vec3, 2> const &array1, std::array<glm::vec3, 2> const &array2)
+                {
+                    return glm::length(array1[1]) < glm::length(array2[1]);
+                });
+
+            voidImage.pixel(x, y) = varianceTable[0][0];
+        }
+    }
+
+    voidImage.save("output/pouet.png");
+```
+### Pièges potentiels à éviter :
+- Se précipiter, abandonner.
+
