@@ -3,7 +3,7 @@
 
 void ExchangeRectangle(sil::Image &image)
 {
-    glm::vec2 inputPositionStart{random_int(0, image.width()), random_int(0, image.height())};
+    glm::vec2 inputPositionStart{random_int(0, image.width()), random_int(0, image.height())}; // Vous pouvez utiliser ivec2 pour stocker 2 int. vec2 stocke deux float
     glm::vec2 outputPositionStart{random_int(0, image.width()), random_int(0, image.height())};
 
     glm::vec2 rectangleSize{random_int(20, 30), random_int(3, 8)};

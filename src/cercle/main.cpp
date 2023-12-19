@@ -9,7 +9,10 @@ int main()
     {
         for (int y{0}; y < image.height(); y++)
         {
-            if (pow(x - image.width() / 2, 2) + pow(y - image.height() / 2, 2) >= pow(rayon, 2) && pow(x - image.width() / 2, 2) + pow(y - image.height() / 2, 2) <= pow(rayon + thickness, 2))
+            // `pow(x - image.width() / 2, 2) + pow(y - image.height() / 2, 2)` est utilisé deux fois, vous pouvez le stocker dans une variable:
+            // ça évite des calculs en double, et ça rend le code plus lisible
+            float const distance_squared{pow(x - image.width() / 2, 2) + pow(y - image.height() / 2, 2)};
+            if (distance_squared >= pow(rayon, 2) && distance_squared <= pow(rayon + thickness, 2))
             {
                 image.pixel(x, y) = {1,
                                      1,

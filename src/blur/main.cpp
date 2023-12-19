@@ -9,7 +9,11 @@ void setEffect(sil::Image &image, sil::Image &newImage)
     // emboss : 0,-1,-2,1,1,-1,2,1,0
     // outline : -1, -1, -1, -1, 8, -1, -1, -1, -1
     // blur : 1,2,1,2,4,2,1,2,1
-    std::vector<float> kernel{-1, -1, -1, -1, 8, -1, -1, -1, -1};
+    std::vector<float> kernel{ // Vous avez le droit de sauter des lignes, et ça peut aider à la lisibilité
+        -1, -1, -1,
+        -1,  8, -1, 
+        -1, -1, -1,
+    };
     bool divide{false};
     for (int x{0}; x < image.width(); x++)
     {

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <sil/sil.hpp>
 
-void newImacPoster(sil::Image &image, sil::Image &newImage, int const &position_x, int const &position_y)
+void newImacPoster(sil::Image const&image, sil::Image &newImage, int const &position_x, int const &position_y)
 {
 
     for (int x{0}; x < image.width(); x++)
