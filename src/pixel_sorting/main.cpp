@@ -6,7 +6,7 @@
 
 float brightness(glm::vec3 &color)
 {
-    return (color.r + color.g + color.b);
+    return (color.r + color.g + color.b) / 3.f;
 }
 
 void getRectangle(sil::Image &image)
@@ -26,7 +26,7 @@ void getRectangle(sil::Image &image)
         }
     }
 
-    std::sort(table.begin(), table.end(), [](glm::vec3 &color1, glm::vec3 &color2)
+    std::sort(table.begin(), table.end(), [](glm::vec3 const&color1, glm::vec3 const&color2)
               { return brightness(color1) < brightness(color2); });
 
     int count{0};

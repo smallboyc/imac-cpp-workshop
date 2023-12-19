@@ -5,7 +5,7 @@
 #include <cmath>
 #include <algorithm>
 
-glm::vec3 moyenneSecteur(sil::Image &image, std::array<std::array<int, 2>, 2> &secteur, int &x, int &y)
+glm::vec3 moyenneSecteur(sil::Image &image, std::array<std::array<int, 2>, 2> const&secteur, int x, int y) // TRÈS IMPORTANT: Ne passez par & que les variables qui ont besoin d'être changées !!! Pour les autres, utilisez const& ou juste rien (aka passage par copie). Pour les petits objets (int, float, double bool, etc.) on préférera la copie, et pour les gros objets (std::vector, std::string, etc.) la const&
 {
     int increase_i{1};
     int increase_j{1};
@@ -34,7 +34,9 @@ glm::vec3 moyenneSecteur(sil::Image &image, std::array<std::array<int, 2>, 2> &s
     return moyenne_secteur;
 }
 
-glm::vec3 varianceSecteur(sil::Image &image, std::array<std::array<int, 2>, 2> &secteur, int &x, int &y, glm::vec3 moyenne_secteur)
+// C'est très bien d'avoir séparé l'algo en plusieurs fonctions intermédiaires.
+
+glm::vec3 varianceSecteur(sil::Image &image, std::array<std::array<int, 2>, 2> const&secteur, int x, int y, glm::vec3 moyenne_secteur)
 {
     int increase_i{1};
     int increase_j{1};

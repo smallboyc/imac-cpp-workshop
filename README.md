@@ -199,16 +199,17 @@ int main()
 
 
 ```cpp
+// On préfère toujours faire nos boucles sur des int, car les erreurs de précision des floats peuvent s'accumuler sur une boucle très longue, et nous faire louper une itération. Pour régler le problème float / int, on préférera faire un static_cast quand on a besoin d'un float
 int main()
 {
     sil::Image image{300, 200};
-    for (float x{0}; x < image.width(); x++)
+    for (int x{0}; x < image.width(); x++)
     {
-        for (float y{0}; y < image.height(); y++)
+        for (int y{0}; y < image.height(); y++)
         {
-            image.pixel(x, y).r = x / (image.width() - 1);
-            image.pixel(x, y).g = x / (image.width() - 1);
-            image.pixel(x, y).b = x / (image.width() - 1);
+            image.pixel(x, y).r = x / static_cast<float>(image.width() - 1);
+            image.pixel(x, y).g = x / static_cast<float>(image.width() - 1);
+            image.pixel(x, y).b = x / static_cast<float>(image.width() - 1);
         }
     }
     image.save("output/pouet.png");
@@ -282,7 +283,7 @@ Dans cet exercice, un effet aléatoire de couleur (bruit) a été appliqué à l
 
 ### Spécificités
 - On utilise la fonction `random_int` pour trouver une position aléatoire sur notre image. `random_float` nous permet de générer un float aléatoire entre 0 et 1 qui sera attribué aux différentes composantes RGB du pixel.
-- On génère `image.pixels().size()-1` pixels aléatoires !
+- On génère `image.pixels().size()-1` pixels aléatoires ! <!-- Il n'y a pas de raison d'utiliser ce nombre précis de pixels bruités. C'est un paramètre artistique, on peut le mettre plus ou moins grand pour faire varier l'effet obtenu  -->
 ```cpp
 #include "random.hpp"
 
